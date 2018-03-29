@@ -5,15 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import br.usjt.deswebmob.servicedeskcco.R;
 import br.usjt.deswebmob.servicedeskcco.model.Chamado;
 import br.usjt.deswebmob.servicedeskcco.model.ChamadoAdapter;
-import br.usjt.deswebmob.servicedeskcco.model.Data;
+import br.usjt.deswebmob.servicedeskcco.model.ChamadoNetwork;
 
 public class ListarChamadosActivity extends Activity {
 
@@ -27,8 +27,7 @@ public class ListarChamadosActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_chamados);
         Intent intent = getIntent();
-        String nomeFila = intent.getStringExtra(MainActivity.FILA);
-        chamados = Data.buscarChamados(nomeFila);
+        chamados = (ArrayList<Chamado>)intent.getSerializableExtra(MainActivity.CHAMADOS);
         listView = (ListView) findViewById(R.id.lista_chamados);
         ChamadoAdapter adapter = new ChamadoAdapter(this, chamados);
         listView.setAdapter(adapter);
