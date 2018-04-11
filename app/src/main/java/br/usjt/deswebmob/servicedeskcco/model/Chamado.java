@@ -16,15 +16,6 @@ public class Chamado implements Serializable{
     public static final String ABERTO = "aberto";
     public static final String FECHADO = "fechado";
 
-    public Chamado(int numero, Date dataAbertura, Date dataFechamento, String status, String descricao, Fila fila) {
-        this.numero = numero;
-        this.dataAbertura = dataAbertura;
-        this.dataFechamento = dataFechamento;
-        this.status = status;
-        this.descricao = descricao;
-        this.fila = fila;
-    }
-
     public Chamado(){}
 
     public int getNumero() {

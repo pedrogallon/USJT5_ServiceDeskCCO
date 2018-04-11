@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 
     public void buscarChamados(View view) {
         String fila = txtFila.getText().toString();
-        new DownloadJsonChamados().execute("http://10.70.11.162:8080/arqsw_sdesk_a4_solucao_parcial/rest/chamados");
+        new DownloadJsonChamados().execute("http://192.168.1.106:8080/arqsw_sdesk_a4_solucao_parcial/rest/chamados/");
 
     }
 

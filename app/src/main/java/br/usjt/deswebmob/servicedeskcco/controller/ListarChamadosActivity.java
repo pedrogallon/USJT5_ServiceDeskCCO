@@ -7,13 +7,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import br.usjt.deswebmob.servicedeskcco.R;
 import br.usjt.deswebmob.servicedeskcco.model.Chamado;
 import br.usjt.deswebmob.servicedeskcco.model.ChamadoAdapter;
-import br.usjt.deswebmob.servicedeskcco.model.ChamadoNetwork;
 
 public class ListarChamadosActivity extends Activity {
 

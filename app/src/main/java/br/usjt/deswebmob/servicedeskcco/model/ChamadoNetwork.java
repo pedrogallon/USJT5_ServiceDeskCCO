@@ -32,8 +32,8 @@ public class ChamadoNetwork {
 
         try {
             JSONArray lista = new JSONArray(json);
-            for(int i = 0; i < lista.length(); i++){
-                JSONObject item = (JSONObject)lista.get(i);
+            for (int i = 0; i < lista.length(); i++) {
+                JSONObject item = (JSONObject) lista.get(i);
                 Chamado chamado = new Chamado();
                 chamado.setNumero(item.getInt("numero"));
                 chamado.setDescricao(item.getString("descricao"));
@@ -41,13 +41,13 @@ public class ChamadoNetwork {
                 String sDataAbertura = (item.getString("dataAbertura"));
                 String sDataFechamento = (item.getString("dataFechamento"));
                 try {
-                    chamado.setDataAbertura((Date)formatter.parse(sDataAbertura));
+                    chamado.setDataAbertura((Date) formatter.parse(sDataAbertura));
                 } catch (ParseException e) {
                     chamado.setDataAbertura(null);
                     e.printStackTrace();
                 }
                 try {
-                    chamado.setDataFechamento((Date)formatter.parse(sDataFechamento));
+                    chamado.setDataFechamento((Date) formatter.parse(sDataFechamento));
                 } catch (ParseException e) {
                     chamado.setDataFechamento(null);
                     e.printStackTrace();
