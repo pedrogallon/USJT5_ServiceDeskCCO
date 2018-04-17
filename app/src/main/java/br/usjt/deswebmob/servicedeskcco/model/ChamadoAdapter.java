@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import br.usjt.deswebmob.servicedeskcco.R;
@@ -21,10 +22,16 @@ import br.usjt.deswebmob.servicedeskcco.R;
 public class ChamadoAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Chamado> chamados;
+    private ArrayList<Fila> filas;
 
     public ChamadoAdapter(Context context, ArrayList<Chamado> chamados) {
         this.context = context;
         this.chamados = chamados;
+        try {
+            this.filas = ChamadoNetwork.getFilas(null, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -67,13 +74,22 @@ public class ChamadoAdapter extends BaseAdapter {
 
         ViewHolder viewHolder = (ViewHolder)view.getTag();
 
-        viewHolder.getImagem().setImageDrawable(Util.getDrawableDinamic(context, chamado.getFila().getFigura()));
+//        viewHolder.getImagem().setImageDrawable(Util.getDrawableDinamic(context, chamado.getFila().getFigura()));
 
+        viewHolder.getImagem().setImageBitmap(filas.get(getFila(chamado.getFila().getId())).getImagem());
         viewHolder.getNumero().setText(String.format("numero: %d - status:%s", chamado.getNumero(), chamado.getStatus()));
         viewHolder.getDatas().setText(String.format("aberture: %tD - fechamento: %tD",
                 chamado.getDataAbertura(), chamado.getDataFechamento()));
         viewHolder.getDescricao().setText(chamado.getDescricao());
 
         return view;
+    }
+
+    private int getFila(int id){
+        for (int i = 0; i<filas.size(); i++){
+            if(filas.get(i).getId() == id)
+                return i;
+        }
+        return -1;
     }
 }

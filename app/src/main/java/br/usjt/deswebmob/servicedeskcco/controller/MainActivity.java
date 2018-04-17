@@ -15,9 +15,11 @@ import br.usjt.deswebmob.servicedeskcco.R;
 import br.usjt.deswebmob.servicedeskcco.controller.ListarChamadosActivity;
 import br.usjt.deswebmob.servicedeskcco.model.Chamado;
 import br.usjt.deswebmob.servicedeskcco.model.ChamadoNetwork;
+import br.usjt.deswebmob.servicedeskcco.model.Fila;
 
 public class MainActivity extends Activity {
     public static final String CHAMADOS = "br.usjt.deswebmob.servicedeskcco.chamados";
+    public static final String FILAS = "br.usjt.deswebmob.servicedeskcco.filas";
     private EditText txtFila;
     Context contexto;
 
@@ -25,13 +27,14 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        txtFila = (EditText)findViewById(R.id.buscar_fila);
+        txtFila = findViewById(R.id.buscar_fila);
         contexto = this;
+        new DownloadJsonChamados().execute("http://192.168.15.20:8080/ArqSft_Chamado/rest/img/");
     }
 
     public void buscarChamados(View view) {
         String fila = txtFila.getText().toString();
-        new DownloadJsonChamados().execute("http://192.168.1.106:8080/arqsw_sdesk_a4_solucao_parcial/rest/chamados/");
+        new DownloadJsonChamados().execute("http://192.168.15.20:8080/ArqSft_Chamado/rest/chamados/");
 
     }
 
@@ -51,6 +54,28 @@ public class MainActivity extends Activity {
         protected void onPostExecute(ArrayList<Chamado> chamados){
             Intent intent = new Intent(contexto, ListarChamadosActivity.class);
             intent.putExtra(CHAMADOS, chamados);
+            startActivity(intent);
+        }
+
+    }
+
+    private class DownloadJsonFilas extends AsyncTask<String, Void, ArrayList<Fila>>{
+
+        @Override
+        protected ArrayList<Fila> doInBackground(String... strings) {
+            ArrayList<Fila> filas = new ArrayList<>();
+            try {
+                filas = ChamadoNetwork.buscarFilas(strings[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return filas;
+        }
+
+
+        protected void onPostExecute(ArrayList<Fila> filas){
+            Intent intent = new Intent(contexto, ListarChamadosActivity.class);
+            intent.putExtra(FILAS, filas);
             startActivity(intent);
         }
 

@@ -1,5 +1,7 @@
 package br.usjt.deswebmob.servicedeskcco.model;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -9,12 +11,8 @@ import java.io.Serializable;
 public class Fila implements Serializable {
     private int id;
     private String nome, figura;
+    private Bitmap imagem;
 
-    public Fila(int id, String nome, String figura) {
-        this.id = id;
-        this.nome = nome;
-        this.figura = figura;
-    }
 
     public Fila() {
     }
@@ -43,12 +41,21 @@ public class Fila implements Serializable {
         this.figura = figura;
     }
 
+    public Bitmap getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(Bitmap imagem) {
+        this.imagem = imagem;
+    }
+
     @Override
     public String toString() {
         return "Fila{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", figura='" + figura + '\'' +
+                ", imagem=" + imagem +
                 '}';
     }
 }
